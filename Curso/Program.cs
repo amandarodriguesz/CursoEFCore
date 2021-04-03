@@ -22,7 +22,34 @@ namespace Curso
             //InserirDados();
             //ConsultarDados();
             //CadastrarPedido();
-            ConsultarPedidoCarregamentoAdiantado();
+            //ConsultarPedidoCarregamentoAdiantado();
+            //AtualizarDados();
+            RemoverRegistros();
+        }
+
+        private static void RemoverRegistros()
+        {
+            using var db = new Data.ApplicationContext();
+            //var clienteRemover = db.Clientes.Find(4);
+            var clienteRemover = new Cliente { Id = 3 }; //dessa forma ela só executa um comando no banco de dados
+
+            db.Entry(clienteRemover).State = EntityState.Deleted;
+            //db.Remove(clienteRemover);
+            db.SaveChanges();
+        }
+
+        public static void AtualizarDados()
+        {
+            using var db = new Data.ApplicationContext();
+            var cliente = db.Clientes.Find(1);
+            cliente.Nome = "Cliente alterado 2";
+
+            //quando usa o update ele atualiza todos os dados da entidade, 
+            //quando você não utilzia a consulta de alteração ficar menos e mais performaartica
+            //db.Update(cliente);
+
+            db.SaveChanges();
+
         }
         private static void ConsultarPedidoCarregamentoAdiantado()
         {
